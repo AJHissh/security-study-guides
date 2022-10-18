@@ -1,0 +1,114 @@
+1.	tracert <ip>
+a.	route of packets and to find ips/locations where they are dropped
+2.	chmod <permissions> <file>
+a.	example uses:
+i.	chmod 644 file.txt 
+1.	sets file permissions (6 – owner can read and write, 4 – group can only read, 4 – others can only read)
+2.	same can be achieved with – chmod u=rwx, g=rx, o=rx file.txt
+3.	chmod 777 file.txt will give everyone access to this file.
+3.	nslookup <ip/domain> OR dig (linux)
+a.	displays information that can be used to diagnose DNS infrastructure
+i.	Two modes
+1.	Interactive
+2.	Non-interactive
+4.	tcpdump –i <interface> <protocol> <port> 
+a.	linux command only
+b.	example use
+i.	tcpdump –I eth1 tcp port80
+1.	this dumps all captured traffic from eth1 on tcp port 80
+5.	netsh advfirewall firewall
+a.	use this command to add or delete firewall rules
+b.	example uses:
+i.	To enable/disable a program
+1.	netsh advfirewall firewall add rule name=<”anyname”> dir=<in or out> action=<allow/block> program=<”path to program”> enable=<yes/no>
+ii.	To enable/disable a port
+1.	netsh advfirewall firewall add rule name=<”anyname”> dir=<in or out> action=<allow/block> protocol=<protocol> localport=<port>
+iii.	To delete enabled programs or ports
+1.	netsh advfirewall firewall delete rule name=<rulename> program=<path-to-program> 
+2.	netsh advfirewall firewall delete rule name=<rulename> protocol=<protocol> localport=<port>
+iv.	To enable specific services
+1.	Netsh advfirewall firewall set rule group=<”group name”> new enable=<Yes/No>
+a.	Netsh advfirewall firewall set rule group=”File and Printer Sharing” new enable=Yes
+b.	Netsh advfirewall firewall set rule group=”remote desktop” new enable=Yes
+6.	netstat
+a.	Provides network statistics and other information
+i.	 To show active connections
+1.	netstat –a
+ii.	 Show binaries
+1.	netstat –b
+iii.	Do not resolve domain names
+1.	netstat –n
+7.	netcat or nc
+a.	reads or writes to a network
+i.	Can listen on port, transfer data, scan ports and send data to port
+1.	Check whether a port is open
+a.	nc –v <ip or domain> <port>
+2.	Port scanning
+a.	nc –vzu <ip or domain> <port range>
+3.	Listening server
+a.	nc –l <any-non-used-port>
+i.	To establish connection to the listening server above, use: 
+1.	nc <ip on machine that ran nc –l cmd > <port>
+4.	Transfer a file
+a.	On a server, open a listener like in step(3) but attached an output file to save all data received by the port.
+i.	ex. nc –l 4444 > output
+b.	On another machine, make or use existing file and send contents of the file to listening server with:
+i.	cat file | nc <listening server IP> <port> 
+ii.	If using the example above, it would look like this: cat filename | nc –l 192.168.0.1 4444
+iii.	This will transfer all contents from file to output on listening server
+5.	Binding program to port and access it
+a.	Bind CMD program  to the port number (SERVER)
+i.	nc –nlvp <port> -e <program>
+1.	ex. nc –nlvp 4444 –e cmd.exe
+b.	Establish connection with a server ( CLIENT )
+i.	nc –nv <ip> <port>
+1.	nc –nv 192.168.0.1 4444
+c.	These commands will open a command prompt of the server from the client machine.
+8.	arp –a
+a.	view local ARP(Address Resolution Protocol) table
+9.	ipconfig(windows) OR ifconfig(linux)
+a.	Shows TCP/IP and network adapter information.
+10.	nmap
+a.	used for mapping, port scanning, operating system scan, services scan
+b.	examples of common nmap commands:
+i.	nmap <IP or Host>
+ii.	nmap –p <port/portrange> <ip>
+iii.	nmap –A <ip> - this is for detecting OS and Services
+iv.	nmap –sV <ip> - Standard service detection
+v.	nmap –sV –version-intensity <1-5> <ip> - Aggressiveness of service detection
+vi.	nmap –sV –sC <ip> - Scan using default safe scripts
+vii.	nmap –script-help=<script-name> - Get help with a script
+viii.	nmap –sV –p <port> -script=<script-name.nse> <ip> - Scan using specific NSE script
+ix.	nmap –sV –script=<script-name*> <ip> - Scan with a set of scripts “*”
+x.	nmap –script=asn-query,whois,ip-geolocation-maxmind <ip> - Scan to find information about IP address
+11.	pathping
+a.	combination of ping and traceroute
+i.	First phase runs traceroute
+ii.	Second phase finds round-trip time and packet loss
+12.	cat 
+a.	view contents of a file, create a new file, combine two files into one etc.
+i.	cat <filename>
+ii.	cat >  <newfile>
+iii.	cat <file-name-of-file-to-be-copied> >    <destination-filename>
+iv.	cat <file-which-contents-will-be-appended> >> <file-which-will-be-the-appendee>
+b.	can also be used to view contents of file in reverse by using:
+i.	tac <filename>
+13.	grep
+a.	Searches for a string in groups of files
+i.	Example uses:
+1.	grep <”string”> <filename.ext>
+a.	grep “mellon” myfile.txt
+2.	Common flags
+a.	–E – run grep with extended regular expressions
+b.	–i – ignore case
+c.	–v – return all lines which don’t match the pattern
+d.	–w – only matches that form whole words
+e.	–c – print count of matching lines
+f.	–l – print the name of each file which contains match
+g.	–n – print the line number before each line that matches
+h.	–r – recursively read all files in given directory and subdirectories
+
+
+
+
+
